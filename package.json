@@ -1,0 +1,45 @@
+{
+  "name": "omniflows-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit",
+    "build:dev": "NEXT_PUBLIC_APP_ENV=development next build",
+    "build:prod": "NEXT_PUBLIC_APP_ENV=production next build",
+    "docker:build": "docker build -t omniflows-frontend .",
+    "docker:build:dev": "docker build -f Dockerfile.development -t omniflows-frontend:development .",
+    "docker:build:prod": "docker build -f Dockerfile.production -t omniflows-frontend:production .",
+    "docker:run": "docker run -p 3000:3000 omniflows-frontend",
+    "docker:run:dev": "docker run -p 3000:3000 omniflows-frontend:development",
+    "docker:run:prod": "docker run -p 3000:3000 omniflows-frontend:production",
+    "compose:local": "docker-compose --profile local up",
+    "compose:dev": "docker-compose --profile development up",
+    "compose:prod": "docker-compose --profile production up",
+    "env:validate": "node -e \"require('./lib/env').validateEnv(); console.log('Environment validation passed');\""
+  },
+  "dependencies": {
+    "next": "15.5.0",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "@types/react": "^18.2.0",
+    "@types/react-dom": "^18.2.0",
+    "autoprefixer": "^10.0.0",
+    "clsx": "^2.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-next": "15.5.0",
+    "postcss": "^8.0.0",
+    "tailwind-merge": "^2.0.0",
+    "tailwindcss": "^3.4.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}

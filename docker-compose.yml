@@ -1,0 +1,54 @@
+version: '3.8'
+
+services:
+  # Local development
+  app-local:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_APP_ENV=local
+      - NEXT_PUBLIC_API_BASE_URL=http://localhost:3001
+      - NEXT_PUBLIC_APP_VERSION=dev-local
+    volumes:
+      - .:/app
+      - /app/node_modules
+      - /app/.next
+    profiles:
+      - local
+
+  # Development environment
+  app-development:
+    build:
+      context: .
+      dockerfile: Dockerfile.development
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_APP_ENV=development
+      - NEXT_PUBLIC_API_BASE_URL=https://api-dev.omniflows.com
+      - NEXT_PUBLIC_APP_VERSION=development
+    restart: unless-stopped
+    profiles:
+      - development
+
+  # Production environment
+  app-production:
+    build:
+      context: .
+      dockerfile: Dockerfile.production
+    ports:
+      - "3000:3000"
+    environment:
+      - NEXT_PUBLIC_APP_ENV=production
+      - NEXT_PUBLIC_API_BASE_URL=https://api.omniflows.com
+      - NEXT_PUBLIC_APP_VERSION=production
+    restart: always
+    profiles:
+      - production
+
+networks:
+  default:
+    name: omniflows-network
